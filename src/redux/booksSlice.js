@@ -87,8 +87,13 @@ const booksSlice = createSlice({
         state.books[index] = updatedBook;
       }
     },
+    deleteBook: (state, action) => {
+      const bookIdToDelete = action.payload;
+      state.books = state.books.filter((book) => book.id !== bookIdToDelete);
+    },
   },
 });
 
-export const { setSearchQuery, addBook, updateBook } = booksSlice.actions;
+export const { setSearchQuery, addBook, updateBook, deleteBook } =
+  booksSlice.actions;
 export default booksSlice.reducer;

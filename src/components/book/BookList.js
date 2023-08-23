@@ -1,12 +1,16 @@
 import React, { useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import DeleteConfirmation from "../ui/DeleteConfirmation";
+import { deleteBook } from "../../redux/booksSlice";
 
 const BookList = () => {
+  const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books); // Get books from Redux store
-  const searchQuery = useSelector((state) => state.books.searchQuery); // Get books from Redux store
+  const searchQuery = useSelector((state) => state.books.searchQuery);
 
   const [filter, setFilter] = useState("all"); // 'all' or 'featured'
+  const [deleteBookId, setDeleteBookId] = useState(null);
 
   // Filter books based on the selected filter and search query
   const filteredBooks = books.filter((book) => {
@@ -21,6 +25,16 @@ const BookList = () => {
     }
     return true;
   });
+
+  // Delete book
+  const handleDelete = (bookId) => {
+    setDeleteBookId(bookId); // Set the bookId to confirm deletion
+  };
+
+  const confirmDelete = (bookId) => {
+    dispatch(deleteBook(deleteBookId));
+    setDeleteBookId(null); // Clear delete state after confirming or cancelling
+  };
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-4 lg:grid-cols-6 gap-4 p-4">
@@ -79,6 +93,14 @@ const BookList = () => {
           <p className="mt-2 text-gray-700">${book.price.toFixed(2)}</p>
 
           <Link to={`/edit/${book.id}`}>Edit</Link>
+          <button onClick={() => handleDelete(book.id)}>Delete</button>
+
+          {deleteBookId === book.id && (
+            <DeleteConfirmation
+              onCancel={() => setDeleteBookId(null)}
+              onConfirm={() => confirmDelete()}
+            />
+          )}
           {/* Display other book details */}
         </div>
       ))}
