@@ -31,7 +31,7 @@ const Navbar = () => {
             />
             <button
               onClick={handleSearch}
-              className="absolute right-2 top-1/2 transform -translate-y-1/2 text-white"
+              className="absolute right-2 top-1/2 transform -translate-y-1/2 "
             >
               Search
             </button>

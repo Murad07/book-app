@@ -3,12 +3,20 @@ import { useSelector } from "react-redux";
 
 const BookList = () => {
   const books = useSelector((state) => state.books.books); // Get books from Redux store
+  const searchQuery = useSelector((state) => state.books.searchQuery); // Get books from Redux store
 
   const [filter, setFilter] = useState("all"); // 'all' or 'featured'
 
-  // Filter books based on the selected filter
-  const filteredBooks =
-    filter === "featured" ? books.filter((book) => book.featured) : books;
+  // Filter books based on the selected filter and search query
+  const filteredBooks = books.filter((book) => {
+    if (filter === "featured") {
+      return book.featured;
+    }
+    if (!searchQuery) {
+      return true; // Show all books if search query is empty
+    }
+    return book.name.toLowerCase().includes(searchQuery.toLowerCase());
+  });
 
   return (
     <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 p-4">
