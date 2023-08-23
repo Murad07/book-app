@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { addBook } from "../../redux/booksSlice";
+import { useNavigate } from "react-router-dom";
 
 const AddBook = () => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: "",
     author: "",
@@ -38,6 +40,8 @@ const AddBook = () => {
       rating: 0,
       featured: false,
     });
+
+    navigate("/");
   };
 
   return (

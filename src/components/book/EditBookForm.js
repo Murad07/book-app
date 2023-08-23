@@ -1,14 +1,30 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { updateBook } from "../../redux/booksSlice";
+import { useNavigate } from "react-router-dom";
 
 const EditBookForm = ({ book }) => {
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState(book);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    dispatch(updateBook(formData));
+
+    // Convert string values to numbers
+    const numericPrice = parseFloat(formData.price);
+    const numericRating = parseInt(formData.rating);
+
+    // Dispatch the action with numeric values
+    dispatch(
+      updateBook({
+        ...formData,
+        price: numericPrice,
+        rating: numericRating,
+      })
+    );
+
+    navigate("/");
   };
 
   return (
