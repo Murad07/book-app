@@ -10,7 +10,57 @@ const initialState = {
       price: 13.99,
       rating: 2,
       featured: true,
+      id: 1,
+    },
+    {
+      name: "The Body Keeps the Score: Brain, Mind, and Body",
+      author: "Parker",
+      thumbnail:
+        "https://m.media-amazon.com/images/I/41T-XHe8-EL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+      price: 10.2,
+      rating: 4,
+      featured: true,
       id: 2,
+    },
+    {
+      name: "Workbook for The Body Keeps The Score",
+      author: "Genie Reads",
+      thumbnail:
+        "https://m.media-amazon.com/images/I/4172OieY0hS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+      price: 15.33,
+      rating: 3,
+      featured: false,
+      id: 3,
+    },
+    {
+      name: "The Last Thing He Told Me: A Novel",
+      author: "Laura",
+      thumbnail:
+        "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
+      price: 14.99,
+      rating: 5,
+      featured: false,
+      id: 4,
+    },
+    {
+      name: "The Body Keeps the Score: Brain, Mind, and Body",
+      author: "Parker",
+      thumbnail:
+        "https://m.media-amazon.com/images/I/41T-XHe8-EL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+      price: 10.2,
+      rating: 4,
+      featured: true,
+      id: 5,
+    },
+    {
+      name: "Workbook for Keeps The Score",
+      author: "Reads",
+      thumbnail:
+        "https://m.media-amazon.com/images/I/4172OieY0hS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
+      price: 15.33,
+      rating: 3,
+      featured: false,
+      id: 6,
     },
   ], // Populate with book data
   searchQuery: "", // For search functionality
