@@ -9,13 +9,16 @@ const BookList = () => {
 
   // Filter books based on the selected filter and search query
   const filteredBooks = books.filter((book) => {
-    if (filter === "featured") {
-      return book.featured;
+    if (filter === "featured" && !book.featured) {
+      return false;
     }
-    if (!searchQuery) {
-      return true; // Show all books if search query is empty
+    if (
+      searchQuery &&
+      !book.name.toLowerCase().includes(searchQuery.toLowerCase())
+    ) {
+      return false;
     }
-    return book.name.toLowerCase().includes(searchQuery.toLowerCase());
+    return true;
   });
 
   return (
