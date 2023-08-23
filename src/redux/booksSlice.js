@@ -73,8 +73,15 @@ const booksSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
+    addBook: (state, action) => {
+      // Generate a unique ID for the new book
+      const newId =
+        state.books.length > 0 ? state.books[state.books.length - 1].id + 1 : 1;
+      const newBook = { ...action.payload, id: newId };
+      state.books.push(newBook);
+    },
   },
 });
 
-export const { setSearchQuery } = booksSlice.actions;
+export const { setSearchQuery, addBook } = booksSlice.actions;
 export default booksSlice.reducer;

@@ -2,6 +2,7 @@ import React from "react";
 import { createBrowserRouter } from "react-router-dom";
 import BookList from "./components/book/BookList";
 import App from "./App";
+import AddBook from "./components/book/AddBook";
 
 const Routes = createBrowserRouter([
   {
@@ -11,6 +12,10 @@ const Routes = createBrowserRouter([
       {
         index: true,
         element: <BookList />,
+      },
+      {
+        path: "/add-book",
+        element: <AddBook />,
       },
     ],
   },

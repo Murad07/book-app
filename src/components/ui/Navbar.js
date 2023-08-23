@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchQuery } from "../../redux/booksSlice";
+import { Link } from "react-router-dom";
 
 const Navbar = () => {
   const dispatch = useDispatch();
@@ -19,8 +20,12 @@ const Navbar = () => {
         </div>
         <div className="hidden md:flex items-center space-x-4">
           {/* Normal Nav Links */}
-          <button className="text-white">Home</button>
-          <button className="text-white">Add Book</button>
+          <button className="text-white">
+            <Link to="/">Home</Link>
+          </button>
+          <button className="text-white">
+            <Link to="/add-book">Add Book</Link>
+          </button>
           <div className="relative">
             <input
               type="text"
@@ -63,8 +68,12 @@ const Navbar = () => {
       {/* Mobile Dropdown */}
       {menuOpen && (
         <div className="md:hidden mt-2">
-          <button className="block text-white mb-2">Home</button>
-          <button className="block text-white mb-2">Add Book</button>
+          <button className="block text-white mb-2">
+            <Link to="/">Home</Link>
+          </button>
+          <button className="block text-white mb-2">
+            <Link to="/add-book">Add Book</Link>
+          </button>
           <div className="relative">
             <input
               type="text"
