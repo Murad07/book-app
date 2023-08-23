@@ -80,8 +80,15 @@ const booksSlice = createSlice({
       const newBook = { ...action.payload, id: newId };
       state.books.push(newBook);
     },
+    updateBook: (state, action) => {
+      const updatedBook = action.payload;
+      const index = state.books.findIndex((book) => book.id === updatedBook.id);
+      if (index !== -1) {
+        state.books[index] = updatedBook;
+      }
+    },
   },
 });
 
-export const { setSearchQuery, addBook } = booksSlice.actions;
+export const { setSearchQuery, addBook, updateBook } = booksSlice.actions;
 export default booksSlice.reducer;

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 const BookList = () => {
   const books = useSelector((state) => state.books.books); // Get books from Redux store
@@ -76,6 +77,8 @@ const BookList = () => {
           </div>
 
           <p className="mt-2 text-gray-700">${book.price.toFixed(2)}</p>
+
+          <Link to={`/edit/${book.id}`}>Edit</Link>
           {/* Display other book details */}
         </div>
       ))}
