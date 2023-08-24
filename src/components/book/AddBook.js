@@ -12,8 +12,15 @@ const AddBook = () => {
     thumbnail: "",
     price: 0,
     rating: 0,
-    featured: false,
+    featured: 0,
   });
+
+  const handleCheckboxChange = () => {
+    setFormData((prevFormData) => ({
+      ...prevFormData,
+      featured: parseInt(prevFormData.featured) == 0 ? 1 : 0,
+    }));
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -140,22 +147,17 @@ const AddBook = () => {
           </div>
 
           <div className="w-1/3 mr-2">
-            <label
-              htmlFor="name"
-              className="block text-gray-700 font-semibold mb-1"
-            >
-              Featured
-            </label>
-            <input
-              type="text"
-              id="featured"
-              value={formData.featured}
-              onChange={(e) =>
-                setFormData({ ...formData, featured: e.target.value })
-              }
-              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
-              required
-            />
+            <div className="flex items-center mt-4">
+              <input
+                type="checkbox"
+                id="featured"
+                name="featured"
+                checked={formData.featured}
+                onChange={handleCheckboxChange}
+                className="mr-2"
+              />
+              <label htmlFor="featured">Featured</label>
+            </div>
           </div>
         </div>
 
