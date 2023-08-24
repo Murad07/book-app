@@ -9,9 +9,9 @@ const BookList = () => {
   const books = useSelector((state) => state.books.books); // Get books from Redux store
   const searchQuery = useSelector((state) => state.books.searchQuery);
 
-  // useEffect(() => {
-  //   dispatch(fetchBooksAsync());
-  // }, [dispatch]);
+  useEffect(() => {
+    dispatch(fetchBooksAsync());
+  }, [dispatch]);
 
   const [filter, setFilter] = useState("all"); // 'all' or 'featured'
   const [deleteBookId, setDeleteBookId] = useState(null);
