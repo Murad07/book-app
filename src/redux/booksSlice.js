@@ -1,4 +1,10 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { fetchBooks } from "../api/api";
+
+export const fetchBooksAsync = createAsyncThunk("/fetchBooks", async () => {
+  const response = await fetchBooks();
+  return response.data;
+});
 
 const initialState = {
   books: [
@@ -67,6 +73,14 @@ const initialState = {
 };
 
 const booksSlice = createSlice({
+  extraReducers: (builder) => {
+    // ... other reducers ...
+
+    builder.addCase(fetchBooksAsync.fulfilled, (state, action) => {
+      state.books = action.payload;
+    });
+  },
+
   name: "books",
   initialState,
   reducers: {

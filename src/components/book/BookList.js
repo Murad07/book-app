@@ -1,13 +1,17 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DeleteConfirmation from "../ui/DeleteConfirmation";
-import { deleteBook } from "../../redux/booksSlice";
+import { deleteBook, fetchBooksAsync } from "../../redux/booksSlice";
 
 const BookList = () => {
   const dispatch = useDispatch();
   const books = useSelector((state) => state.books.books); // Get books from Redux store
   const searchQuery = useSelector((state) => state.books.searchQuery);
+
+  // useEffect(() => {
+  //   dispatch(fetchBooksAsync());
+  // }, [dispatch]);
 
   const [filter, setFilter] = useState("all"); // 'all' or 'featured'
   const [deleteBookId, setDeleteBookId] = useState(null);
