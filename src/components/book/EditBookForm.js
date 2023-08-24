@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateBook } from "../../redux/booksSlice";
+import { updateBook, updateBookAsync } from "../../redux/booksSlice";
 import { useNavigate } from "react-router-dom";
 
 const EditBookForm = ({ book }) => {
@@ -14,13 +14,16 @@ const EditBookForm = ({ book }) => {
     // Convert string values to numbers
     const numericPrice = parseFloat(formData.price);
     const numericRating = parseInt(formData.rating);
+    const numericFeatured = parseInt(formData.featured);
 
     // Dispatch the action with numeric values
     dispatch(
-      updateBook({
+      updateBookAsync({
         ...formData,
+        // id: formData.id,
         price: numericPrice,
         rating: numericRating,
+        featured: numericFeatured,
       })
     );
 

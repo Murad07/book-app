@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, createBook, deleteBook } from "../api/api";
+import { fetchBooks, createBook, updateBook, deleteBook } from "../api/api";
 
 // Get books from backend
 export const fetchBooksAsync = createAsyncThunk("/fetchBooks", async () => {
@@ -12,6 +12,14 @@ export const addBookAsync = createAsyncThunk(
   "/createBook",
   async (bookData) => {
     const response = await createBook(bookData);
+    return response.data;
+  }
+);
+
+export const updateBookAsync = createAsyncThunk(
+  "/updateBook",
+  async (updatedBookData) => {
+    const response = await updateBook(updatedBookData);
     return response.data;
   }
 );
@@ -40,6 +48,13 @@ const booksSlice = createSlice({
       .addCase(addBookAsync.fulfilled, (state, action) => {
         state.books.push(action.payload);
       })
+      .addCase(updateBookAsync.fulfilled, (state, action) => {
+        const { bookId, updatedBook } = action.payload;
+        const index = state.books.findIndex((book) => book.id === bookId);
+        if (index !== -1) {
+          state.books[index] = updatedBook;
+        }
+      })
       .addCase(deleteBookAsync.fulfilled, (state, action) => {
         state.books = state.books.filter((book) => book.id !== action.payload);
       });
@@ -51,19 +66,8 @@ const booksSlice = createSlice({
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
     },
-    updateBook: (state, action) => {
-      const updatedBook = action.payload;
-      const index = state.books.findIndex((book) => book.id === updatedBook.id);
-      if (index !== -1) {
-        state.books[index] = updatedBook;
-      }
-    },
-    // deleteBook: (state, action) => {
-    //   const bookIdToDelete = action.payload;
-    //   state.books = state.books.filter((book) => book.id !== bookIdToDelete);
-    // },
   },
 });
 
-export const { setSearchQuery, updateBook } = booksSlice.actions;
+export const { setSearchQuery } = booksSlice.actions;
 export default booksSlice.reducer;
