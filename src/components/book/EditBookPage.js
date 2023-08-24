@@ -15,7 +15,6 @@ const EditBookPage = () => {
 
   return (
     <div>
-      <h2>Edit Book</h2>
       <EditBookForm book={book} />
     </div>
   );

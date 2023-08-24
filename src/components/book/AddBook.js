@@ -37,9 +37,12 @@ const AddBook = () => {
   };
 
   return (
-    <div className="p-4">
-      <h2 className="text-lg font-semibold mb-4">Add New Book</h2>
-      <form onSubmit={handleSubmit}>
+    <div className="flex justify-center items-center h-screen bg-gray-100">
+      <form
+        onSubmit={handleSubmit}
+        className="bg-white p-6 rounded border shadow-md w-full sm:w-96"
+      >
+        <h2 className="text-2xl font-semibold mb-4">Add Book</h2>
         <div className="mb-4">
           <label
             htmlFor="name"
@@ -52,14 +55,14 @@ const AddBook = () => {
             id="name"
             value={formData.name}
             onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-            className="w-full px-4 py-2 rounded-md border-blue-300"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             required
           />
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="name"
+            htmlFor="author"
             className="block text-gray-700 font-semibold mb-1"
           >
             Author
@@ -71,14 +74,14 @@ const AddBook = () => {
             onChange={(e) =>
               setFormData({ ...formData, author: e.target.value })
             }
-            className="w-full px-4 py-2 rounded-md border-blue-300"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             required
           />
         </div>
 
         <div className="mb-4">
           <label
-            htmlFor="name"
+            htmlFor="thumbnail"
             className="block text-gray-700 font-semibold mb-1"
           >
             Thumbnail
@@ -90,69 +93,70 @@ const AddBook = () => {
             onChange={(e) =>
               setFormData({ ...formData, thumbnail: e.target.value })
             }
-            className="w-full px-4 py-2 rounded-md border-blue-300"
+            className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
             required
           />
         </div>
+        <div className="flex mb-4">
+          <div className="w-1/3 mr-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-semibold mb-1"
+            >
+              Price
+            </label>
+            <input
+              type="number"
+              id="price"
+              value={formData.price}
+              onChange={(e) =>
+                setFormData({ ...formData, price: e.target.value })
+              }
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+              step="0.01"
+              required
+            />
+          </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-semibold mb-1"
-          >
-            Price
-          </label>
-          <input
-            type="number"
-            id="price"
-            value={formData.price}
-            onChange={(e) =>
-              setFormData({ ...formData, price: e.target.value })
-            }
-            className="w-full px-4 py-2 rounded-md border-blue-300"
-            step="0.01"
-            required
-          />
-        </div>
+          <div className="w-1/3 mr-2">
+            <label
+              htmlFor="rating"
+              className="block text-gray-700 font-semibold mb-1"
+            >
+              Rating
+            </label>
+            <input
+              type="number"
+              id="rating"
+              value={formData.rating}
+              onChange={(e) =>
+                setFormData({ ...formData, rating: e.target.value })
+              }
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+              min="1"
+              max="5"
+              required
+            />
+          </div>
 
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-semibold mb-1"
-          >
-            Rating
-          </label>
-          <input
-            type="number"
-            id="rating"
-            value={formData.rating}
-            onChange={(e) =>
-              setFormData({ ...formData, rating: e.target.value })
-            }
-            className="w-full px-4 py-2 rounded-md border-blue-300"
-            min="1"
-            max="5"
-            required
-          />
-        </div>
-
-        <div className="mb-4">
-          <label
-            htmlFor="name"
-            className="block text-gray-700 font-semibold mb-1"
-          >
-            Featured
-          </label>
-          <input
-            type="text"
-            id="featured"
-            value={formData.featured}
-            onChange={(e) =>
-              setFormData({ ...formData, featured: e.target.value })
-            }
-            className="w-full px-4 py-2 rounded-md border-blue-300"
-            required
-          />
+          <div className="w-1/3 mr-2">
+            <label
+              htmlFor="name"
+              className="block text-gray-700 font-semibold mb-1"
+            >
+              Featured
+            </label>
+            <input
+              type="text"
+              id="featured"
+              value={formData.featured}
+              onChange={(e) =>
+                setFormData({ ...formData, featured: e.target.value })
+              }
+              className="w-full border border-gray-300 rounded px-3 py-2 focus:outline-none focus:border-blue-500"
+              required
+            />
+          </div>
         </div>
 
         <button
