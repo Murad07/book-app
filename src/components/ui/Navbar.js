@@ -8,6 +8,12 @@ const Navbar = () => {
   const [search, setSearch] = useState("");
   const [menuOpen, setMenuOpen] = useState(false);
 
+  const handleSearchInputChange = (e) => {
+    const inputValue = e.target.value;
+    setSearch(inputValue);
+    handleSearch(); // Call handleSearch on every input change
+  };
+
   const handleSearch = () => {
     dispatch(setSearchQuery(search));
   };
@@ -31,7 +37,7 @@ const Navbar = () => {
               type="text"
               placeholder="Search..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchInputChange}
               className="px-2 py-1 rounded-md"
             />
             <button
@@ -79,7 +85,7 @@ const Navbar = () => {
               type="text"
               placeholder="Search..."
               value={search}
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={handleSearchInputChange}
               className="px-2 py-1 rounded-md"
             />
             <button
