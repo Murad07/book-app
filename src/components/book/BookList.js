@@ -3,6 +3,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DeleteConfirmation from "../ui/DeleteConfirmation";
 import { deleteBookAsync, fetchBooksAsync } from "../../redux/booksSlice";
+import Icon from "../ui/Icon";
+import { faEdit, faTrashAlt } from "@fortawesome/free-solid-svg-icons";
 
 const BookList = () => {
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ const BookList = () => {
         </button>
       </div>
       {filteredBooks?.map((book) => (
-        <div key={book?.id} className="bg-white rounded-lg shadow-md p-4">
+        <div key={book?.id} className="bg-white rounded-lg shadow-md p-4 ">
           <img
             src={book?.thumbnail}
             alt={book?.name}
@@ -87,17 +89,30 @@ const BookList = () => {
                 </svg>
               ))}
             </div>
-            {book?.featured && (
+            {book?.featured ? (
               <span className="ml-2 px-2 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
                 Featured
               </span>
+            ) : (
+              ""
             )}
           </div>
 
           <p className="mt-2 text-gray-700">${book?.price?.toFixed(2)}</p>
 
-          <Link to={`/edit/${book?.id}`}>Edit</Link>
-          <button onClick={() => handleDelete(book?.id)}>Delete</button>
+          <div className="flex justify-end mb-auto">
+            <Link to={`/edit/${book?.id}`} className="p-0 mr-3">
+              <Icon icon={faEdit} color />
+            </Link>
+
+            <span>
+              <Icon
+                icon={faTrashAlt}
+                onClick={() => handleDelete(book.id)}
+                color="danger"
+              />
+            </span>
+          </div>
 
           {deleteBookId === book?.id && (
             <DeleteConfirmation

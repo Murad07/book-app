@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { updateBook, updateBookAsync } from "../../redux/booksSlice";
+import { updateBookAsync } from "../../redux/booksSlice";
 import { useNavigate } from "react-router-dom";
 
 const EditBookForm = ({ book }) => {
