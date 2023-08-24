@@ -76,7 +76,7 @@ const BookList = () => {
             <div className="flex">
               {/* Star Rating */}
 
-              {[...Array(book.rating)].map((_, index) => (
+              {[...Array(book?.rating)].map((_, index) => (
                 <svg
                   key={index}
                   className="w-4 h-4 fill-current text-yellow-500"
@@ -87,19 +87,19 @@ const BookList = () => {
                 </svg>
               ))}
             </div>
-            {book.featured && (
+            {book?.featured && (
               <span className="ml-2 px-2 py-1 bg-green-500 text-white text-xs font-semibold rounded-full">
                 Featured
               </span>
             )}
           </div>
 
-          <p className="mt-2 text-gray-700">${book.price.toFixed(2)}</p>
+          <p className="mt-2 text-gray-700">${book?.price?.toFixed(2)}</p>
 
-          <Link to={`/edit/${book.id}`}>Edit</Link>
-          <button onClick={() => handleDelete(book.id)}>Delete</button>
+          <Link to={`/edit/${book?.id}`}>Edit</Link>
+          <button onClick={() => handleDelete(book?.id)}>Delete</button>
 
-          {deleteBookId === book.id && (
+          {deleteBookId === book?.id && (
             <DeleteConfirmation
               onCancel={() => setDeleteBookId(null)}
               onConfirm={() => confirmDelete()}

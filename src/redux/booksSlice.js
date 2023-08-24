@@ -1,74 +1,23 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchBooks } from "../api/api";
+import { fetchBooks, createBook } from "../api/api";
 
+// Get books from backend
 export const fetchBooksAsync = createAsyncThunk("/fetchBooks", async () => {
   const response = await fetchBooks();
   return response.data;
 });
 
+// Add new book throw backend api to db
+export const addBookAsync = createAsyncThunk(
+  "/createBook",
+  async (bookData) => {
+    const response = await createBook(bookData);
+    return response.data;
+  }
+);
+
 const initialState = {
-  books: [
-    {
-      name: "The Last Thing He Told Me: A Novel",
-      author: "Laura",
-      thumbnail:
-        "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
-      price: 13.99,
-      rating: 2,
-      featured: true,
-      id: 1,
-    },
-    {
-      name: "The Body Keeps the Score: Brain, Mind, and Body",
-      author: "Parker",
-      thumbnail:
-        "https://m.media-amazon.com/images/I/41T-XHe8-EL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
-      price: 10.2,
-      rating: 4,
-      featured: true,
-      id: 2,
-    },
-    {
-      name: "Workbook for The Body Keeps The Score",
-      author: "Genie Reads",
-      thumbnail:
-        "https://m.media-amazon.com/images/I/4172OieY0hS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
-      price: 15.33,
-      rating: 3,
-      featured: false,
-      id: 3,
-    },
-    {
-      name: "The Last Thing He Told Me: A Novel",
-      author: "Laura",
-      thumbnail:
-        "https://m.media-amazon.com/images/P/1501171348.01._SCLZZZZZZZ_SX500_.jpg",
-      price: 14.99,
-      rating: 5,
-      featured: false,
-      id: 4,
-    },
-    {
-      name: "The Body Keeps the Score: Brain, Mind, and Body",
-      author: "Parker",
-      thumbnail:
-        "https://m.media-amazon.com/images/I/41T-XHe8-EL._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
-      price: 10.2,
-      rating: 4,
-      featured: true,
-      id: 5,
-    },
-    {
-      name: "Workbook for Keeps The Score",
-      author: "Reads",
-      thumbnail:
-        "https://m.media-amazon.com/images/I/4172OieY0hS._SY291_BO1,204,203,200_QL40_FMwebp_.jpg",
-      price: 15.33,
-      rating: 3,
-      featured: false,
-      id: 6,
-    },
-  ], // Populate with book data
+  books: [], // Populate with book data
   searchQuery: "", // For search functionality
 };
 
@@ -76,9 +25,13 @@ const booksSlice = createSlice({
   extraReducers: (builder) => {
     // ... other reducers ...
 
-    builder.addCase(fetchBooksAsync.fulfilled, (state, action) => {
-      state.books = action.payload;
-    });
+    builder
+      .addCase(fetchBooksAsync.fulfilled, (state, action) => {
+        state.books = action.payload;
+      })
+      .addCase(addBookAsync.fulfilled, (state, action) => {
+        state.books.push(action.payload);
+      });
   },
 
   name: "books",
@@ -86,13 +39,6 @@ const booksSlice = createSlice({
   reducers: {
     setSearchQuery: (state, action) => {
       state.searchQuery = action.payload;
-    },
-    addBook: (state, action) => {
-      // Generate a unique ID for the new book
-      const newId =
-        state.books.length > 0 ? state.books[state.books.length - 1].id + 1 : 1;
-      const newBook = { ...action.payload, id: newId };
-      state.books.push(newBook);
     },
     updateBook: (state, action) => {
       const updatedBook = action.payload;
@@ -108,6 +54,5 @@ const booksSlice = createSlice({
   },
 });
 
-export const { setSearchQuery, addBook, updateBook, deleteBook } =
-  booksSlice.actions;
+export const { setSearchQuery, updateBook, deleteBook } = booksSlice.actions;
 export default booksSlice.reducer;
