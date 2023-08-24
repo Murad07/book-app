@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { fetchBooks, createBook } from "../api/api";
+import { fetchBooks, createBook, deleteBook } from "../api/api";
 
 // Get books from backend
 export const fetchBooksAsync = createAsyncThunk("/fetchBooks", async () => {
@@ -13,6 +13,14 @@ export const addBookAsync = createAsyncThunk(
   async (bookData) => {
     const response = await createBook(bookData);
     return response.data;
+  }
+);
+
+export const deleteBookAsync = createAsyncThunk(
+  "/deleteBook",
+  async (bookId) => {
+    await deleteBook(bookId);
+    return bookId;
   }
 );
 
@@ -31,6 +39,9 @@ const booksSlice = createSlice({
       })
       .addCase(addBookAsync.fulfilled, (state, action) => {
         state.books.push(action.payload);
+      })
+      .addCase(deleteBookAsync.fulfilled, (state, action) => {
+        state.books = state.books.filter((book) => book.id !== action.payload);
       });
   },
 
@@ -47,12 +58,12 @@ const booksSlice = createSlice({
         state.books[index] = updatedBook;
       }
     },
-    deleteBook: (state, action) => {
-      const bookIdToDelete = action.payload;
-      state.books = state.books.filter((book) => book.id !== bookIdToDelete);
-    },
+    // deleteBook: (state, action) => {
+    //   const bookIdToDelete = action.payload;
+    //   state.books = state.books.filter((book) => book.id !== bookIdToDelete);
+    // },
   },
 });
 
-export const { setSearchQuery, updateBook, deleteBook } = booksSlice.actions;
+export const { setSearchQuery, updateBook } = booksSlice.actions;
 export default booksSlice.reducer;

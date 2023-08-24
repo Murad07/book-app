@@ -2,7 +2,11 @@ import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import DeleteConfirmation from "../ui/DeleteConfirmation";
-import { deleteBook, fetchBooksAsync } from "../../redux/booksSlice";
+import {
+  deleteBook,
+  deleteBookAsync,
+  fetchBooksAsync,
+} from "../../redux/booksSlice";
 
 const BookList = () => {
   const dispatch = useDispatch();
@@ -36,7 +40,7 @@ const BookList = () => {
   };
 
   const confirmDelete = (bookId) => {
-    dispatch(deleteBook(deleteBookId));
+    dispatch(deleteBookAsync(deleteBookId));
     setDeleteBookId(null); // Clear delete state after confirming or cancelling
   };
 
